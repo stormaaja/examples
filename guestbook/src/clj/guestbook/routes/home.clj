@@ -3,15 +3,25 @@
             [compojure.core :refer [defroutes GET POST]]
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
-            [guestbook.db.core :as db]
             [bouncer.core :as b]
-            [bouncer.validators :as v]))
+            [bouncer.validators :as v]
+            [clj-wiite.core :as w]
+            [guestbook.config :refer [env]]))
 
+(prn env)
+
+(defn create-watom []
+  (let [state (w/watom "postgres://wiiteuser:passu@127.0.0.1:5432/wiitetest")]
+    (when (nil? @state)
+      (reset! state []))
+    state))
+
+(defonce messages (create-watom))
 
 (defn home-page [{:keys [flash]}]
   (layout/render
     "home.html"
-    (merge {:messages (db/get-messages)}
+    (merge {:messages @messages}
            (select-keys flash [:name :message :errors]))))
 
 (defn validate-message [params]
@@ -26,8 +36,8 @@
     (-> (response/found "/")
         (assoc :flash (assoc params :errors errors)))
     (do
-      (db/save-message!
-        (assoc params :timestamp (java.util.Date.)))
+      (swap! messages conj
+        (assoc params :timestamp (.toString (java.util.Date.))))
       (response/found "/"))))
 
 (defn about-page []

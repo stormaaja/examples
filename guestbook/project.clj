@@ -14,7 +14,7 @@
                  [markdown-clj "0.9.90"]
                  [metosin/ring-http-response "0.8.0"]
                  [mount "0.1.10"]
-                 [org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojure "1.9.0"]
                  [org.clojure/tools.cli "0.3.5"]
                  [org.clojure/tools.logging "0.3.1"]
                  [org.webjars.bower/tether "1.3.7"]
@@ -25,7 +25,8 @@
                  [ring-middleware-format "0.7.0"]
                  [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.2.1"]
-                 [selmer "1.10.0"]]
+                 [selmer "1.10.0"]
+                 [clj-wiite "0.1.0"]]
 
   :min-lein-version "2.0.0"
 
@@ -55,7 +56,7 @@
                                  [ring/ring-devel "1.5.0"]
                                  [pjstadig/humane-test-output "0.8.1"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]]
-                  
+
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}

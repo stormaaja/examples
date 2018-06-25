@@ -5,7 +5,7 @@
         <ul class="messages">
             {% for item in messages %}
             <li>
-                <time>{{item.timestamp|date:"yyyy-MM-dd HH:mm"}}</time>
+                <time>{{item.timestamp}}</time>
                 <p>{{item.message}}</p>
                 <p> - {{item.name}}</p>
             </li>
